@@ -5,12 +5,41 @@ consts.DATA = 1
 consts.MENSAGEM_MOTIVACIONAL = 2
 consts.QUANTIDADE_RESPOSTAS_SERVIDOR = 3
 
+def cheksum(lista_bytes):
+    tamanho_lista = len(lista_bytes)
+    if tamanho_lista % 2 == 0: # Verfica se o tamanho da lista_bytes é par 
+       pass
+    else:
+        lista_bytes = lista_bytes + bytes([0]) # se não for adiciona um byte zero no fim da lista
+    tamanho_lista = len(lista_bytes) # atualiza o tamanho da lista
+    index = 0
+    resultado = 0
+    for i in range(int(tamanho_lista/4)):
+        # soma as palavras de 16 bits na lista e soma com a palavra guardada em resultado
+        resultado = somar_palavra_16bits(resultado,somar_palavra_16bits(lista_bytes[index] << 8 | lista_bytes[index+1],lista_bytes[index+2]<< 8 |lista_bytes[index+3])) 
+        index += 4
+    
+    return ~resultado & 0xFFFF #inverte os bits do resultado
+        
+def somar_palavra_16bits(palavra1,palavra2):
+    resultado =  palavra1 + palavra2 
+    while resultado.bit_length() > 16: # verifica se a soma da palavra1 + palavra2 tem mais de 16 bits se sim um carryout do bit mais significativo vai ser somada ao resultado
+        carry = resultado >> 16
+        resultado &= 0xFFFF
+        resultado += carry
+    return resultado
+
 def dividir_numero_2_bytes(numero):
-    # Obtém o byte mais significativo 
-    byte1 = (numero >> 8) & 0xFF
-    # Obtém o byte menos significativo 
-    byte2 = numero & 0xFF
-    return byte1, byte2
+    numero = numero.to_bytes(2,byteorder='big')
+    return numero
+
+def trasformar_string_ip_em_bytes(ip):
+    lista_string = ip.split('.')
+    lista_int = []
+    for i in lista_string:
+        lista_int.append(int(i)) 
+    return bytes(lista_int)
+    
 def sortear_identificador():
     return random.randint(1, 65535)
 

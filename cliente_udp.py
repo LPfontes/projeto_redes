@@ -13,7 +13,7 @@ while True:
         print("adeus ʕ •ɷ•ʔฅ ")
         break
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)    
-    mensagem = funcoes_aux.criar_menssagem(int(tipo),funcoes_aux.sortear_identificador()) #Cria a messangem a ser passada para o servidor de acordo com a requisão
+    mensagem = funcoes_aux.criar_requisao(int(tipo),funcoes_aux.sortear_identificador()) #Cria a messangem a ser passada para o servidor de acordo com a requisão
     endereco_destino = ('15.228.191.109', 50000) #Endereço do servidor
     udp_socket.sendto(mensagem, endereco_destino)
 

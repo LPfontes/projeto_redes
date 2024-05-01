@@ -6,6 +6,7 @@ def definir_porta_origem():
     sock = socket.socket()
     sock.bind(('', 0))
     return sock.getsockname()[1]
+
 def definir_ip_origem():
     hostname = socket.gethostname()
     return socket.gethostbyname(hostname)
@@ -26,7 +27,7 @@ while True:
         break
     ip_origem = definir_ip_origem()
     porta_origem = definir_porta_origem()
-    socket_raw = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_UDP)   
+    socket_raw = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)   
     mensagem = funcoes_aux.criar_menssagem(int(tipo),funcoes_aux.sortear_identificador()) #Cria a messangem a ser passada para o servidor de acordo com a requisão
     #criar_o_cabeçalho_UDP;
     #criar_cabeçalho_IP; 
