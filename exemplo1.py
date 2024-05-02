@@ -30,7 +30,9 @@ protocolo = protocolo.to_bytes(1,byteorder='big')
 zero = 0b00000000
 pseudo_cabecalho = ip_origem + ip_destino + bytes([zero,protocolo[0], tamanho_udp_cabecalho[0],tamanho_udp_cabecalho[1]])  
 
-cheksum = funcoes_aux.cheksum(pseudo_cabecalho + segmento)
+udp_checksum = funcoes_aux.cheksum(pseudo_cabecalho + segmento)
+udp_checksum = funcoes_aux.dividir_numero_2_bytes(udp_checksum)
+udp_cabecalho = bytes([porta_origem[0], porta_origem[1], porta_destino[0],porta_destino[1],tamanho_udp_cabecalho[0],tamanho_udp_cabecalho[1],udp_checksum[0],udp_checksum[1]]) 
 print(udp_cabecalho)
 print("porta_origem")
 print(funcoes_aux.bytes_to_int([udp_cabecalho[0],udp_cabecalho[1]]))
