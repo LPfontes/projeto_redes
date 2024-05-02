@@ -17,8 +17,7 @@ def cheksum(lista_bytes):
     for i in range(int(tamanho_lista/4)):
         # soma as palavras de 16 bits na lista e soma com a palavra guardada em resultado
         resultado = somar_palavra_16bits(resultado,somar_palavra_16bits(lista_bytes[index] << 8 | lista_bytes[index+1],lista_bytes[index+2]<< 8 |lista_bytes[index+3])) 
-        index += 4
-    
+        index += 4 
     return ~resultado & 0xFFFF #inverte os bits do resultado
         
 def somar_palavra_16bits(palavra1,palavra2):
@@ -29,21 +28,21 @@ def somar_palavra_16bits(palavra1,palavra2):
         resultado += carry
     return resultado
 
-def dividir_numero_2_bytes(numero):
+def dividir_numero_2_bytes(numero): # divide um int em uma lista com 2 bytes seguindo a ordenação big endian
     numero = numero.to_bytes(2,byteorder='big')
     return numero
 
-def trasformar_string_ip_em_bytes(ip):
+def trasformar_string_ip_em_bytes(ip): # remove os pontos da string ip e trasforma a string em uma lista de bytes 
     lista_string = ip.split('.')
     lista_int = []
     for i in lista_string:
         lista_int.append(int(i)) 
     return bytes(lista_int)
     
-def sortear_identificador():
+def sortear_identificador():  # retorna um numero aleatorio de 1 a 65535
     return random.randint(1, 65535)
 
-def criar_menssagem(tipo,identificador):
+def criar_requisao(tipo,identificador): # codifica a requisão de acordo com as especificação do projeto
     byte1 = 0b00000000
     bytes_identificador = dividir_numero_2_bytes(identificador) 
     match tipo:
@@ -58,13 +57,13 @@ def criar_menssagem(tipo,identificador):
     mensagem = bytes([byte1, bytes_identificador[0], bytes_identificador[1]]) 
     return mensagem     
   
-def bytes_to_string(lista_bytes):
+def bytes_to_string(lista_bytes): # trasforma uma lista de bytes em um string
     return ''.join(chr(i) for i in lista_bytes)
 
-def bytes_to_int(lista_bytes):
+def bytes_to_int(lista_bytes): # trasforma uma lista de bytes em um int
     return int.from_bytes(bytes(lista_bytes), byteorder='big')
    
-def decodificar_resposta(dados):
+def decodificar_resposta(dados): # decodifica a resposta de acordo com as especificação do projeto
     byte1 = dados[0]
     tamanho_resposta = dados[3]
     lista_bytes = []
