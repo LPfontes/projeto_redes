@@ -51,7 +51,7 @@ while True:
         print("adeus ʕ •ɷ•ʔฅ ")
         break
 
-    data = funcoes_aux.criar_requisao(tipo, funcoes_aux.sortear_identificador())
+    data = funcoes_aux.criar_requisao(int(tipo), funcoes_aux.sortear_identificador())
 
     ### CABEÇALHO UDP ###
     porta_origem = definir_porta_origem()
@@ -75,4 +75,5 @@ while True:
     payload = get_payload(dados)
     print(payload)
 
-
+if __name__ == "__main__":
+    main()
