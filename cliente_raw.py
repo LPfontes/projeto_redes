@@ -73,7 +73,9 @@ while True:
 
     dados, endereco_origem = socket_raw.recvfrom(2040)  # Recebe a resposta do servidor
     payload = get_payload(dados)
-    print(payload)
+    resposta = funcoes_aux.decodificar_resposta(payload)  # Decodifica a resposta de acordo com o tipo da requisição
+    print(resposta)
+    
 
 if __name__ == "__main__":
     main()
