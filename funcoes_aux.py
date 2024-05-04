@@ -4,7 +4,12 @@ consts = types.SimpleNamespace()
 consts.DATA = 1
 consts.MENSAGEM_MOTIVACIONAL = 2
 consts.QUANTIDADE_RESPOSTAS_SERVIDOR = 3
-
+def print_comandos():
+    print("Tipos de requisição: ")
+    print("1 - Data e hora atual")
+    print("2 - Uma mensagem motivacional para o fim do semestre")
+    print("3 - A quantidade de respostas emitidas pelo servidor até o momento")
+    print("4 - Sair")
 
 def cheksum(lista_bytes):
     tamanho_lista = len(lista_bytes)
