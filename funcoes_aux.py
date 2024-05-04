@@ -4,6 +4,7 @@ consts = types.SimpleNamespace()
 consts.DATA = 1
 consts.MENSAGEM_MOTIVACIONAL = 2
 consts.QUANTIDADE_RESPOSTAS_SERVIDOR = 3
+
 def print_comandos():
     print("Tipos de requisição: ")
     print("1 - Data e hora atual")
@@ -13,11 +14,11 @@ def print_comandos():
 
 def cheksum(lista_bytes):
     tamanho_lista = len(lista_bytes)
-    if tamanho_lista % 2 == 0:                 # Verifica se o tamanho da lista_bytes é par
+    if tamanho_lista % 2 == 0:                  # Verifica se o tamanho da lista_bytes é par
        pass
     else:
-        lista_bytes = lista_bytes + bytes([0]) # Se não, adiciona um byte zero no fim da lista
-    tamanho_lista = len(lista_bytes)           # Atualiza o tamanho da lista
+        lista_bytes = lista_bytes + bytes([0])  # Se não, adiciona um byte zero no fim da lista
+    tamanho_lista = len(lista_bytes)            # Atualiza o tamanho da lista
     index = 0
     resultado = 0
     for i in range(int(tamanho_lista/4)):
@@ -29,7 +30,7 @@ def cheksum(lista_bytes):
 
 def somar_palavra_16bits(palavra1, palavra2):
     resultado = palavra1 + palavra2
-    while resultado.bit_length() > 16:   # Verifica se a soma da palavra1 + palavra2 tem mais de 16 bits, se sim um carryout do bit mais significativo vai ser somada ao resultado
+    while resultado.bit_length() > 16:   # Verifica se a soma da palavra1 + palavra2 tem mais de 16 bits, se sim um carryout do bit mais significativo vai ser somado ao resultado
         carry = resultado >> 16
         resultado &= 0xFFFF
         resultado += carry
@@ -41,7 +42,7 @@ def dividir_numero_2_bytes(numero):     # Divide um int em uma lista com 2 bytes
     return numero
 
 
-def trasformar_string_ip_em_bytes(ip):  # Remove os pontos da string ip e trasforma a string em uma lista de bytes
+def trasformar_string_ip_em_bytes(ip):  # Remove os pontos da string ip e transforma a string em uma lista de bytes
     lista_string = ip.split('.')
     lista_int = []
     for i in lista_string:
@@ -49,11 +50,11 @@ def trasformar_string_ip_em_bytes(ip):  # Remove os pontos da string ip e trasfo
     return bytes(lista_int)
 
 
-def sortear_identificador():  # Retorna um numero aleatorio de 1 a 65535
+def sortear_identificador():            # Retorna um numero aleatorio de 1 a 65535
     return random.randint(1, 65535)
 
 
-def criar_requisao(tipo, identificador):  # Codifica a requisão de acordo com as especificação do projeto
+def criar_requisicao(tipo, identificador):  # Codifica a requisição de acordo com as especificações do projeto
     byte1 = 0b00000000
     bytes_identificador = dividir_numero_2_bytes(identificador)
     match tipo:
@@ -73,11 +74,11 @@ def bytes_to_string(lista_bytes):  # Trasforma uma lista de bytes em um string
     return ''.join(chr(i) for i in lista_bytes)
 
 
-def bytes_to_int(lista_bytes):  # Trasforma uma lista de bytes em um int
+def bytes_to_int(lista_bytes):     # Trasforma uma lista de bytes em um int
     return int.from_bytes(bytes(lista_bytes), byteorder='big')
 
 
-def decodificar_resposta(dados):  # Decodifica a resposta de acordo com as especificações do projeto
+def decodificar_resposta(dados):   # Decodifica a resposta de acordo com as especificações do projeto
     tipo = dados[0]
     tamanho_resposta = dados[3]
     lista_bytes = []
